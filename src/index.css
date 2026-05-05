@@ -1,0 +1,192 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ────────────────────────────────────────────────────────────
+   CSS VARIABLES — How theming works:
+   
+   We define colours as CSS variables.
+   Dark mode  → applied when <html class="dark">
+   Light mode → applied when <html class="light"> (or no class)
+   
+   Then in JSX we use:  className="bg-[var(--bg)] text-[var(--text)]"
+   Or we use Tailwind's dark: prefix:  className="bg-gray-950 dark:bg-gray-950 light:bg-white"
+   ────────────────────────────────────────────────────────────── */
+
+/* ── Dark Theme (default) ──────────────────────────────────── */
+:root,
+html.dark {
+  --bg:           #0a0a0b;
+  --bg2:          #111114;
+  --bg3:          #18181d;
+  --bg4:          #1f1f26;
+  --border:       #2a2a35;
+  --border2:      #333340;
+  --text:         #f0eff5;
+  --text2:        #9896a8;
+  --text3:        #5a5870;
+  --accent:       #f97316;   /* orange-500 */
+  --accent2:      #fb923c;   /* orange-400 */
+  --accent-bg:    rgba(249, 115, 22, 0.12);
+  --accent-border:rgba(249, 115, 22, 0.25);
+  --green:        #22c55e;
+  --green-bg:     rgba(34, 197, 94, 0.1);
+  --red:          #ef4444;
+  --red-bg:       rgba(239, 68, 68, 0.1);
+  --blue:         #3b82f6;
+  --blue-bg:      rgba(59, 130, 246, 0.1);
+  --yellow:       #f59e0b;
+  --yellow-bg:    rgba(245, 158, 11, 0.1);
+  --purple:       #a855f7;
+  --purple-bg:    rgba(168, 85, 247, 0.1);
+
+  /* Shadows */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg:    0 10px 30px rgba(0,0,0,0.6);
+
+  color-scheme: dark;
+}
+
+/* ── Light Theme ───────────────────────────────────────────── */
+html.light {
+  --bg:           #f8f9fc;
+  --bg2:          #ffffff;
+  --bg3:          #f1f3f8;
+  --bg4:          #e8ebf2;
+  --border:       #e2e5ef;
+  --border2:      #d0d5e8;
+  --text:         #0f1117;
+  --text2:        #4b5068;
+  --text3:        #9097b0;
+  --accent:       #f97316;
+  --accent2:      #ea580c;
+  --accent-bg:    rgba(249, 115, 22, 0.08);
+  --accent-border:rgba(249, 115, 22, 0.20);
+  --green:        #16a34a;
+  --green-bg:     rgba(22, 163, 74, 0.08);
+  --red:          #dc2626;
+  --red-bg:       rgba(220, 38, 38, 0.08);
+  --blue:         #2563eb;
+  --blue-bg:      rgba(37, 99, 235, 0.08);
+  --yellow:       #d97706;
+  --yellow-bg:    rgba(217, 119, 6, 0.08);
+  --purple:       #7c3aed;
+  --purple-bg:    rgba(124, 58, 237, 0.08);
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg:    0 10px 30px rgba(0,0,0,0.12);
+
+  color-scheme: light;
+}
+
+/* ── Base styles ───────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply box-border;
+    /* Smooth transition on all theme-sensitive properties */
+    transition-property: background-color, border-color, color;
+    transition-duration: 180ms;
+    transition-timing-function: ease;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply antialiased;
+  }
+
+  /* Custom scrollbar — dark */
+  html.dark ::-webkit-scrollbar       { width: 5px; }
+  html.dark ::-webkit-scrollbar-track { background: var(--bg2); }
+  html.dark ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 9999px; }
+  html.dark ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+  /* Custom scrollbar — light */
+  html.light ::-webkit-scrollbar       { width: 5px; }
+  html.light ::-webkit-scrollbar-track { background: var(--bg3); }
+  html.light ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 9999px; }
+  html.light ::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+}
+
+/* ── Reusable theme utility classes ─────────────────────────── */
+@layer components {
+
+  /* Surfaces */
+  .bg-surface      { background-color: var(--bg); }
+  .bg-surface-2    { background-color: var(--bg2); }
+  .bg-surface-3    { background-color: var(--bg3); }
+
+  /* Text */
+  .text-primary    { color: var(--text); }
+  .text-secondary  { color: var(--text2); }
+  .text-muted      { color: var(--text3); }
+
+  /* Borders */
+  .border-theme    { border-color: var(--border); }
+  .border-theme-2  { border-color: var(--border2); }
+
+  /* Cards — the most used component */
+  .card {
+    background-color: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .card:hover {
+    border-color: var(--border2);
+  }
+
+  /* Input fields */
+  .input-theme {
+    width: 100%;
+    background-color: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 150ms ease;
+  }
+  .input-theme::placeholder { color: var(--text3); }
+  .input-theme:focus        { border-color: var(--accent); }
+
+  /* Select */
+  .select-theme {
+    width: 100%;
+    background-color: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 150ms ease;
+  }
+  .select-theme:focus { border-color: var(--accent); }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.25s ease both;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Theme toggle button spin animation */
+@keyframes spinOnce {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-once {
+  animation: spinOnce 0.4s ease;
+}
