@@ -109,7 +109,7 @@ const Login = () => {
                 required
                 autoFocus
                 className="input-theme"
-                placeholder="admin@gym.com"
+                placeholder="youremail@gmil.com"
               />
             </div>
 
@@ -162,11 +162,11 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Demo hint */}
+          {/* Demo hint
           <p className="text-center text-xs mt-5" style={{ color: 'var(--text3)' }}>
             Demo: <span style={{ color: 'var(--text2)' }}>admin@gym.com</span>{' '}
             / <span style={{ color: 'var(--text2)' }}>admin123</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
